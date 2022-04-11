@@ -1,12 +1,14 @@
-import Link from 'next/link'
+import Link from 'next/link';
+
+import NavStyles from './styles/NavStyles';
 
 export default function Nav() {
   return (
-    <nav>
+    <NavStyles>
       <Link href="/products">PRODUCT</Link>
       <Link href="/sells">SELL</Link>
       <Link href="/orders">ORDER</Link>
       <Link href="/accounts">ACCOUNT</Link>
-    </nav>
-  )
+    </NavStyles>
+  );
 }
