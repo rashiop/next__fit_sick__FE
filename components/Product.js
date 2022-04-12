@@ -25,7 +25,9 @@ export default function Product({ product }) {
               id: product.id,
             },
           }}
-        />
+        >
+          Edit :pencil:
+        </Link>
       </div>
     </ItemStyles>
   );
