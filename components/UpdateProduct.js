@@ -20,12 +20,6 @@ const SINGLE_PRODUCT_QUERY = gql`
       price
       description
       id
-      photo {
-        altText
-        image {
-          publicUrlTransformed
-        }
-      }
     }
   }
 `;
@@ -52,19 +46,16 @@ const UPDATE_PRODUCT_MUTATION = gql`
 function UpdateProduct({ id }) {
   const {
     loading: fetchLoading,
-    data: { Product: product } = {},
+    data = {},
     error: fetchError,
   } = useQuery(SINGLE_PRODUCT_QUERY, {
     variables: { id },
   });
 
-  const { inputs, handleChange, resetForm, clearForm } = useForm({
-    name: product?.name ?? '',
-    price: product?.price ?? 0,
-    description: product?.description ?? '',
-    status: product?.status ?? 'AVAILABLE',
-    id,
-  });
+  const { inputs, handleChange, resetForm, clearForm } = useForm(
+    data?.Product,
+    fetchLoading
+  );
 
   const [updateProduct, { loading: saveLoading, error: saveError }] =
     useMutation(UPDATE_PRODUCT_MUTATION, {
@@ -73,7 +64,6 @@ function UpdateProduct({ id }) {
     });
 
   if (fetchLoading) return <p>Loading...</p>;
-  if (fetchError) return <DisplayError error={fetchError} />;
 
   return (
     <Form
@@ -87,7 +77,7 @@ function UpdateProduct({ id }) {
         });
       }}
     >
-      <DisplayError error={saveError} />
+      <DisplayError error={fetchError ?? saveError} />
       <fieldset aria-busy={saveLoading}>
         <p>Update {id}</p>
         <label htmlFor="name">
