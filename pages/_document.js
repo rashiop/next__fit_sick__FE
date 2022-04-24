@@ -1,13 +1,15 @@
-import Document, { Html, Head, NextScript, Main } from 'next/document'
-import { ServerStyleSheet } from 'styled-components'
+import Document, { Html, Head, NextScript, Main } from 'next/document';
+import { ServerStyleSheet } from 'styled-components';
 
 export default class MyDocument extends Document {
   static getInitialProps(ctx) {
-    const sheet = new ServerStyleSheet()
-    const page = ctx.renderPage((App) => (props) => sheet.collectStyles(<App {...props} />))
+    const sheet = new ServerStyleSheet();
+    const page = ctx.renderPage(
+      (App) => (props) => sheet.collectStyles(<App {...props} />)
+    );
 
-    const styleTags = sheet.getStyleElement()
-    return { ...page, ...styleTags }
+    const styleTags = sheet.getStyleElement();
+    return { ...page, ...styleTags };
   }
 
   render() {
@@ -19,6 +21,6 @@ export default class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }
