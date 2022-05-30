@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
+
 import { perPage } from '../config';
 
 import DisplayError from './ErrorMessage';
@@ -24,7 +26,7 @@ export const ALL_PRODUCTS_QUERY = gql`
 `;
 
 export default function Products({ page = 1 }) {
-  const prevPage = page - 1;
+  const prevPage = +page - 1;
   const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY, {
     variables: {
       first: perPage,
@@ -58,3 +60,7 @@ const ProductsListStyles = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 60px;
 `;
+
+Products.propTypes = {
+  page: PropTypes.number,
+};
