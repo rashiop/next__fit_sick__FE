@@ -25,7 +25,6 @@ export default function DeleteProduct({ id, children }) {
       disabled={loading}
       onClick={() => {
         if (confirm('Are you sure to delete this item?')) {
-          console.log('bye beetch');
           deleteProduct().catch((err) => alert(err.message));
         }
       }}
